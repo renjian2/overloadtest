@@ -58,8 +58,6 @@ obj-$(CONFIG_COMPAT) += mdss_compat_utils.o
 
 
 obj-$(CONFIG_FB_MSM_MDSS_DSI_CTRL_STATUS) += mdss_dsi_status.o
-<<<<<<< HEAD
+
 
 obj-$(CONFIG_FB_MSM_MDSS_KCAL_CTRL) += mdss_mdp_kcal_ctrl.o
-=======
->>>>>>> parent of b70a80f... msm: mdss: Add KCAL support for post processing control [v2]
