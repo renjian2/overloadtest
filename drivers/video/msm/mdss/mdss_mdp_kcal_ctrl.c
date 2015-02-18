@@ -50,7 +50,11 @@ static int mdss_mdp_kcal_display_commit(void)
 	for (i = 0; i < mdata->nctl; i++) {
 		ctl = mdata->ctl_off + i;
 		/* pp setup requires mfd */
+<<<<<<< HEAD
 		if (mdss_mdp_ctl_is_power_on(ctl) && ctl->mfd &&
+=======
+		if ((ctl->power_on) && ctl->mfd &&
+>>>>>>> b70a80f... msm: mdss: Add KCAL support for post processing control [v2]
 				ctl->mfd->index == 0) {
 			ret = mdss_mdp_pp_setup(ctl);
 			if (ret)
