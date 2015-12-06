@@ -25,7 +25,11 @@
 #include <linux/module.h>
 #include <linux/kthread.h>
 
+<<<<<<< HEAD
 static int touchboost = 0;
+=======
+static int touchboost = 1;
+>>>>>>> 2583d09... msm_performance: Make input boosting optional
 
 static struct mutex managed_cpus_lock;
 
@@ -343,6 +347,10 @@ static int set_cpu_min_freq(const char *buf, const struct kernel_param *kp)
 	struct cpufreq_policy policy;
 	cpumask_var_t limit_mask;
 	int ret;
+	const char *reset = "0:0 4:0";
+
+	if (touchboost == 0)
+		cp = reset;
 
 	const char *reset = "0:0 4:0";
 
