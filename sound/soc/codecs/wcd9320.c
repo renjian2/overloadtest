@@ -10,37 +10,8 @@
  * GNU General Public License for more details.
  */
 #include <linux/module.h>
-#include <linux/init.h>
-#include <linux/firmware.h>
-#include <linux/slab.h>
-#include <linux/platform_device.h>
-#include <linux/device.h>
-#include <linux/printk.h>
-#include <linux/ratelimit.h>
-#include <linux/debugfs.h>
-#include <linux/wait.h>
-#include <linux/bitops.h>
-#include <linux/mfd/wcd9xxx/core.h>
-#include <linux/mfd/wcd9xxx/wcd9xxx_registers.h>
-#include <uapi/linux/mfd/wcd9xxx/wcd9320_registers.h>
-#include <linux/mfd/wcd9xxx/pdata.h>
-#include <linux/regulator/consumer.h>
-#include <sound/pcm.h>
-#include <sound/pcm_params.h>
-#include <sound/soc.h>
-#include <sound/soc-dapm.h>
-#include <sound/tlv.h>
-#include <linux/bitops.h>
-#include <linux/delay.h>
-#include <linux/pm_runtime.h>
-#include <linux/kernel.h>
-#include <linux/gpio.h>
-#include <linux/pm_qos.h>
-#include <soc/qcom/pm.h>
-#include "wcd9320.h"
-#include "wcd9xxx-resmgr.h"
-#include "wcd9xxx-common.h"
 
+<<<<<<< HEAD
 #define TAIKO_MAD_SLIMBUS_TX_PORT 12
 #define TAIKO_MAD_AUDIO_FIRMWARE_PATH "wcd9320/wcd9320_mad_audio.bin"
 #define TAIKO_VALIDATE_RX_SBPORT_RANGE(port) ((port >= 16) && (port <= 22))
@@ -7654,3 +7625,7 @@ module_exit(taiko_codec_exit);
 
 MODULE_DESCRIPTION("Taiko codec driver");
 MODULE_LICENSE("GPL v2");
+=======
+bool enable_fs = 1;
+module_param(enable_fs, bool, 0644);
+>>>>>>> 06ebe69... Modify Faux-Sound Control

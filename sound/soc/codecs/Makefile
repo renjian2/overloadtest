@@ -293,5 +293,9 @@ obj-$(CONFIG_SND_SOC_TPA6130A2)	+= snd-soc-tpa6130a2.o
 obj-$(CONFIG_SND_SOC_SMART_PA_TFA9890)	+=  tfa98xx.o
 =======
 
+<<<<<<< HEAD
 obj-$(CONFIG_SOUND_CONTROL_HAX_3_GPL) += sound_control_3_gpl.o
 >>>>>>> 50246a6... Add Faux-Sound Control v3.6
+=======
+obj-$(CONFIG_SOUND_CONTROL_HAX_3_GPL) += sound_control_3_gpl.o snd-soc-wcd9320.o
+>>>>>>> 06ebe69... Modify Faux-Sound Control
