@@ -132,10 +132,10 @@
 				<0x2 0x1>,
 				<0x3 0x0>;
 
-<<<<<<< HEAD
+
 		qcom,gpu-speed-config@0 {
 			compatible = "gpu-speed-config@0";
-=======
+			qcom,initial-pwrlevel = <5>;
 			/* TURBO */
 			qcom,gpu-pwrlevel@0 {
 				reg = <0>;
@@ -144,10 +144,9 @@
 				qcom,bus-min = <9>;
 				qcom,bus-max = <10>;
 			};
->>>>>>> 939e085... Unlock Maximum CPU Frequencies
 
-			qcom,initial-pwrlevel = <5>;
 
+			
 			/* Power levels */
 			qcom,gpu-pwrlevels {
 				#address-cells = <1>;

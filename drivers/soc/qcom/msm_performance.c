@@ -25,11 +25,8 @@
 #include <linux/module.h>
 #include <linux/kthread.h>
 
-<<<<<<< HEAD
 static int touchboost = 0;
-=======
-static int touchboost = 1;
->>>>>>> 2583d09... msm_performance: Make input boosting optional
+
 
 static struct mutex managed_cpus_lock;
 
