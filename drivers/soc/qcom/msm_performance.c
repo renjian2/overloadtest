@@ -25,11 +25,12 @@
 #include <linux/module.h>
 #include <linux/kthread.h>
 
-
+<<<<<<< HEAD
 static int touchboost = 0;
 
 
-
+=======
+>>>>>>> parent of 43164221... Make Touch-Boost Optional
 static struct mutex managed_cpus_lock;
 
 /* Maximum number to clusters that this module will manage*/
