@@ -343,6 +343,7 @@
 		qcom,speed1-bin-v0-c1 =
 			<          0 0>,
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<  200000000 1>,
 			<  400000000 2>,
 			<  883200000 3>,
@@ -350,12 +351,17 @@
 			< 1382400000 5>,
 			< 1652800000 6>,
 =======
+=======
+>>>>>>> parent of 53d4df7... overlock to lower frequence
 			<  400000000 1>,
 			<  883200000 2>,
 			< 1190400000 3>,
 			< 1382400000 4>,
 			< 1612800000 5>,
 			< 1747200000 6>,
+<<<<<<< HEAD
+>>>>>>> parent of 53d4df7... overlock to lower frequence
+=======
 >>>>>>> parent of 53d4df7... overlock to lower frequence
 			< 1843200000 7>;
 		qcom,speed1-bin-v0-cci =
