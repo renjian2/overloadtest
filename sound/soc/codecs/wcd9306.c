@@ -39,20 +39,6 @@
 #include "wcd9xxx-common.h"
 #include "wcdcal-hwdep.h"
 
-struct sound_control {
-	int default_headphones_value;
-	int default_speaker_value;
-	int default_mic_value;
-	struct snd_soc_codec *snd_control_codec;
-	bool playback_lock;
-	bool speaker_lock;
-	bool recording_lock;
-} soundcontrol = {
-	.playback_lock = false,
-	.speaker_lock = false,
-	.recording_lock = false,
-};
-
 #define TAPAN_HPH_PA_SETTLE_COMP_ON 5000
 #define TAPAN_HPH_PA_SETTLE_COMP_OFF 13000
 
@@ -3611,38 +3597,12 @@ static int tapan_volatile(struct snd_soc_codec *ssc, unsigned int reg)
 	return 0;
 }
 
-static int reg_access(unsigned int reg)
-{
-	int ret = 1;
-
-	switch (reg) {
-		case TAPAN_A_CDC_RX1_VOL_CTL_B2_CTL:
-		case TAPAN_A_CDC_RX2_VOL_CTL_B2_CTL:
-			if (soundcontrol.playback_lock)
-                                ret = 0;
-                        break;
-		case TAPAN_A_CDC_RX4_VOL_CTL_B2_CTL:
-			if (soundcontrol.speaker_lock)
-                                ret = 0;
-			break;
-		case TAPAN_A_CDC_TX3_VOL_CTL_GAIN:
-			if (soundcontrol.recording_lock)
-				ret = 0;
-			break;
-		default:
-			break;
-		}
-
-	return ret;
-}
-
 #define TAPAN_FORMATS (SNDRV_PCM_FMTBIT_S16_LE)
 #define TAPAN_FORMATS_S16_S24_LE (SNDRV_PCM_FMTBIT_S16_LE | \
 				  SNDRV_PCM_FORMAT_S24_LE)
 static int tapan_write(struct snd_soc_codec *codec, unsigned int reg,
 	unsigned int value)
 {
-	int val;
 	int ret;
 	struct wcd9xxx *wcd9xxx = codec->control_data;
 	struct tapan_priv *tapan_p = snd_soc_codec_get_drvdata(codec);
@@ -3659,6 +3619,7 @@ static int tapan_write(struct snd_soc_codec *codec, unsigned int reg,
 				reg, ret);
 	}
 
+<<<<<<< HEAD
 
 	if (unlikely(test_bit(BUS_DOWN, &tapan_p->status_mask))) {
 		printk_ratelimited(KERN_ERR "write 0x%02x while offline\n",
@@ -3674,6 +3635,9 @@ static int tapan_write(struct snd_soc_codec *codec, unsigned int reg,
 
 	return wcd9xxx_reg_write(&wcd9xxx->core_res, reg, val);
 
+=======
+	return wcd9xxx_reg_write(&wcd9xxx->core_res, reg, value);
+>>>>>>> parent of b1f36d7... sound: add sound control to increase headphones, speaker and mic gain.
 }
 static unsigned int tapan_read(struct snd_soc_codec *codec,
 				unsigned int reg)
@@ -6334,63 +6298,6 @@ static struct regulator *tapan_codec_find_regulator(
 	return NULL;
 }
 
-void update_headphones_volume_boost(unsigned int vol_boost)
-{
-	int default_val = soundcontrol.default_headphones_value;
-	int boosted_val = default_val + vol_boost;
-
-	pr_info("Sound Control: Headphones default value %d\n", default_val);
-
-	soundcontrol.playback_lock = false;
-	tapan_write(soundcontrol.snd_control_codec,
-		TAPAN_A_CDC_RX1_VOL_CTL_B2_CTL, boosted_val);
-	tapan_write(soundcontrol.snd_control_codec,
-		TAPAN_A_CDC_RX2_VOL_CTL_B2_CTL, boosted_val);
-	soundcontrol.playback_lock = true;
-
-	pr_info("Sound Control: Boosted Headphones RX1 value %d\n",
-		tapan_read(soundcontrol.snd_control_codec,
-		TAPAN_A_CDC_RX1_VOL_CTL_B2_CTL));
-
-	pr_info("Sound Control: Boosted Headphones RX2 value %d\n",
-		tapan_read(soundcontrol.snd_control_codec,
-		TAPAN_A_CDC_RX2_VOL_CTL_B2_CTL));
-}
-
-void update_speaker_gain(int vol_boost)
-{
-	int default_val = soundcontrol.default_speaker_value;
-	int boosted_val = default_val + vol_boost;
-
-	pr_info("Sound Control: Speaker default value %d\n", default_val);
-
-	soundcontrol.speaker_lock = false;
-	tapan_write(soundcontrol.snd_control_codec,
-		TAPAN_A_CDC_RX4_VOL_CTL_B2_CTL, boosted_val);
-	soundcontrol.speaker_lock = true;
-
-	pr_info("Sound Control: Boosted Speaker RX3 value %d\n",
-		tapan_read(soundcontrol.snd_control_codec,
-		TAPAN_A_CDC_RX4_VOL_CTL_B2_CTL));
-}
-
-void update_mic_gain(unsigned int vol_boost)
-{
-	int default_val = soundcontrol.default_mic_value;
-	int boosted_val = default_val + vol_boost;
-
-	pr_info("Sound Control: Mic default value %d\n", default_val);
-
-	soundcontrol.recording_lock = false;
-	tapan_write(soundcontrol.snd_control_codec,
-		TAPAN_A_CDC_TX3_VOL_CTL_GAIN, boosted_val);
-	soundcontrol.recording_lock = true;
-
-	pr_info("Sound Control: Boosted Mic value %d\n",
-		tapan_read(soundcontrol.snd_control_codec,
-		TAPAN_A_CDC_TX3_VOL_CTL_GAIN));
-}
-
 static void tapan_enable_config_rco(struct wcd9xxx *core, bool enable)
 {
 	struct wcd9xxx_core_resource *core_res = &core->core_res;
@@ -6512,8 +6419,6 @@ static int tapan_codec_probe(struct snd_soc_codec *codec)
 	int i, rco_clk_rate;
 	void *ptr = NULL;
 	struct wcd9xxx_core_resource *core_res;
-
-    soundcontrol.snd_control_codec = codec;
 
 	codec->control_data = dev_get_drvdata(codec->dev->parent);
 	control = codec->control_data;
@@ -6683,16 +6588,6 @@ static int tapan_codec_probe(struct snd_soc_codec *codec)
 	snd_soc_dapm_sync(dapm);
 
 	codec->ignore_pmdown_time = 1;
-
-	/*
-	 * Get the default values during probe
-	 */
-	soundcontrol.default_headphones_value = tapan_read(codec,
-		TAPAN_A_CDC_RX1_VOL_CTL_B2_CTL);
-	soundcontrol.default_speaker_value = tapan_read(codec,
-		TAPAN_A_CDC_RX4_VOL_CTL_B2_CTL);
-	soundcontrol.default_mic_value = tapan_read(codec,
-		TAPAN_A_CDC_TX3_VOL_CTL_GAIN);
 
 	if (ret)
 		tapan_cleanup_irqs(tapan);
