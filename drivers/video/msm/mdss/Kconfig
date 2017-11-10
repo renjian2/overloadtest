@@ -54,7 +54,7 @@ config FB_MSM_MDSS_MDP3
 	The MDP3 provides support for an older version display controller
 	included in latest display sub-system, known as MDSS.
 
-<<<<<<< HEAD
+
 config FB_MSM_MDSS_XLOG_DEBUG
 	depends on FB_MSM_MDSS
 	bool "Enable MDSS debugging"
@@ -71,8 +71,7 @@ config FB_MSM_MDSS_BACKLIGHT_LEECO
 	---help---
 	Enables LeEco specific backlight hacks
 
-=======
->>>>>>> b70a80f... msm: mdss: Add KCAL support for post processing control [v2]
+
 config FB_MSM_MDSS_KCAL_CTRL
 	depends on FB_MSM_MDSS
 	bool "MDSS color control"
