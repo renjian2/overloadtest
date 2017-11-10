@@ -1030,14 +1030,12 @@ static int device_suspend_late(struct device *dev, pm_message_t state)
 	pm_callback_t callback = NULL;
 	char *info = NULL;
 	int error = 0;
-<<<<<<< HEAD
 
 	__pm_runtime_disable(dev, false);
 
 	if (dev->power.syscore)
 		return 0;
-=======
->>>>>>> a8cb9b3... PM: Fix a bug in dpm_suspend_late()
+
 
 	if (dev->pm_domain) {
 		info = "late power domain ";
@@ -1060,13 +1058,12 @@ static int device_suspend_late(struct device *dev, pm_message_t state)
 
 	error = dpm_run_callback(callback, dev, state, info);
 	if (error)
-<<<<<<< HEAD
+
 		/*
 		 * dpm_resume_early wouldn't be run for this failed device,
 		 * hence enable runtime_pm now
 		 */
-=======
->>>>>>> a8cb9b3... PM: Fix a bug in dpm_suspend_late()
+
 		pm_runtime_enable(dev);
 
 	return error;
