@@ -579,7 +579,7 @@ config SND_SOC_MSM_HDMI_CODEC_RX
 	HDMI audio drivers should be built only if the platform
         supports hdmi panel.
 
-<<<<<<< HEAD
+
 config SND_SOC_LEECO
 	depends on SND_SOC
 	bool "Enable LeEco sound hacks"
@@ -597,14 +597,8 @@ config SND_SOC_SMART_PA_TFA9890
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called  TFA9890 Smart pa
-=======
+
 config SOUND_CONTROL_HAX_3_GPL
 	tristate "Faux Sound Control v4.1"
 	default y
 	help
-<<<<<<< HEAD
- 		FauxSound wcd9xxx chipset sound control hacks 3.0 for deeper hax 
->>>>>>> 50246a6... Add Faux-Sound Control v3.6
-=======
- 		Faux Sound Control v4.1, enhanced by Shoaib Anwar a.k.a Shoaib0597 and robcore.
->>>>>>> 06ebe69... Modify Faux-Sound Control
